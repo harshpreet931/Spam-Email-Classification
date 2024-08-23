@@ -18,7 +18,7 @@ void tokenize(char *email, char tokens[][50], int *token_count)
 
 void train(char emails[][MAX_EMAIL_SIZE], int labels[], int email_count)
 {
-    for(int i = 0; i < email_count, i++)
+    for(int i = 0; i < email_count; i++)
     {
         char tokens[MAX_TOKENS][50];
         int token_count = 0;
