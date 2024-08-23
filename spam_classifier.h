@@ -1,6 +1,6 @@
 #define MAX_EMAIL_SIZE 1000
-#define MAX_WORDS 1000
-#define MAX_TOKENS 100
+#define MAX_WORDS 10000
+#define MAX_TOKENS 1000
 
 typedef struct
 {
