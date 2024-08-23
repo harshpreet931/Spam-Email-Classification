@@ -9,9 +9,6 @@ typedef struct
     int not_spam_count;
 } WordProbability;
 
-void tokenize(char *email, char token[][50], int *token_count);
-void train(char [][MAX_EMAIL_SIZE], int labels[], int email_count);
-double calculate_probability(char *email, int is_spam);
+void train(char emails[][MAX_EMAIL_SIZE], int labels[], int email_count);
 int predict(char *email);
 void test(char test_emails[][MAX_EMAIL_SIZE], int test_labels[], int test_count);
-
