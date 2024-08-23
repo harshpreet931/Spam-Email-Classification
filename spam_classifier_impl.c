@@ -63,3 +63,54 @@ void train(char emails[][MAX_EMAIL_SIZE], int labels[], int email_count)
     }
 }
 
+double calculate_probability(char *email, int is_spam)
+{
+    char tokens[MAX_TOKENS][50];
+    int token_count = 0;
+    tokenize(email, tokens, &token_count);
+
+    double prob = 1.0;
+    for(int i = 0; i < token_count; i++)
+    {
+        for(int j = 0; j < word_prob_count; j++)
+        {
+            if(strcmp(word_probs[j].word, tokens[i]) == 0)
+            {
+                if(is_spam)
+                {
+                    prob *= (double)word_probs[j].spam_count / (word_probs[j].spam_count + word_probs[j].not_spam_count);
+                }
+                else
+                {
+                    prob *= (double)word_probs[j].not_spam_count / (word_probs[j].spam_count + word_probs[j].not_spam_count);
+                }
+                break;
+            }
+        }
+    }
+
+    return prob;
+}
+
+int predict(char *email)
+{
+    double spam_prob = calculate_probability(email, 1);
+    double not_spam_prob = calculate_probability(email, 0);
+
+    return spam_prob > not_spam_prob ? 1 : 0;
+}
+
+void test(char test_emails[][MAX_EMAIL_SIZE], int test_labels[], int test_count)
+{
+    int correct = 0;
+    for(int i = 0; i < test_count; i++)
+    {
+        int prediction = predict(test_emails[i]);
+        if(prediction == test_labels[i])
+        {
+            correct++;
+        }
+    }
+
+    printf("Accuracy: %f\n", (double)correct / test_count);
+}
