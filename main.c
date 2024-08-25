@@ -1,11 +1,16 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <sys/time.h>
+#include <time.h>
 #include "spam_classifier.h"
 
 #define NUM_TRAIN_EMAILS 80
 #define NUM_TEST_EMAILS 20
 
 int main() {
+    struct timeval start, end;
+
     char train_emails[NUM_TRAIN_EMAILS][MAX_EMAIL_SIZE] = {
         "Win a lottery now!", "Buy a car now", "Meeting at 10 AM", "Report to me in office",
         "Congratulations! You've won $1000000", "Urgent: Your account needs attention",
@@ -42,8 +47,11 @@ int main() {
         1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1
     };
 
-    train(train_emails, train_labels, NUM_TRAIN_EMAILS);
+    gettimeofday(&start, NULL);
+    long long start_time = start.tv_sec * 1000LL + start.tv_usec / 1000;
 
+    train(train_emails, train_labels, NUM_TRAIN_EMAILS);
+    
     char test_emails[NUM_TEST_EMAILS][MAX_EMAIL_SIZE] = {
         "Win big prizes now", "Team meeting at 3 PM", "You're the lucky winner", "Project deadline extended",
         "Get rich quick scheme", "Quarterly sales report", "Free gift waiting for you", "New hire onboarding",
@@ -57,6 +65,11 @@ int main() {
     };
 
     test(test_emails, test_labels, NUM_TEST_EMAILS);
+
+    gettimeofday(&end, NULL);
+    long long end_time = end.tv_sec * 1000LL + end.tv_usec / 1000;
+
+    printf("Execution time: %lld ms\n", end_time - start_time);
 
     return 0;
 }
