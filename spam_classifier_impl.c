@@ -1,17 +1,37 @@
 #include "spam_classifier.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
 
 WordProbability word_probs[MAX_WORDS];
 int word_prob_count = 0;
 
-void tokenize(char *email, char tokens[][50], int *token_count)
+void tokenize(char* email, char tokens[][50], int* token_count)
 {
-    char *token = strtok(email, " ");
-    while (token != NULL)
+    char* token = strtok(email, " ");
+    while(token != NULL && *token_count < MAX_TOKENS)
     {
-        strcpy(tokens[*token_count], token);
-        (*token_count)++;
+        for(int i = 0; token[i]; i++)
+        {
+            token[i] = tolower(token[i]);
+        }
+
+        int j = 0;
+        for(int i = 0; token[i]; i++)
+        {
+            if(isalnum(token[i]))
+            {
+                token[j++] = token[i];
+            }
+        }
+        token[j] = '\0';
+
+        if(strlen(token) > 0)
+        {
+            strcpy(tokens[*token_count], token);
+            (*token_count)++;
+        }
         token = strtok(NULL, " ");
     }
 }
