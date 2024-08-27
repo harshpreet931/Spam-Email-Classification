@@ -9,33 +9,54 @@
 #define TRAIN_RATIO 0.8
 
 int main() {
-    struct timeval start, end;
     char emails[MAX_EMAILS][MAX_EMAIL_SIZE];
     int labels[MAX_EMAILS];
     int email_count = 0;
 
-    FILE* file = fopen('')
+    FILE* file = fopen("./spm_temp.txt", "r+");
+    if(file == NULL) 
+    {
+        printf("Error opening file\n");
+        return 1;
+    }
+    printf("File opened successfully\n");
 
-    
-    
-    
-    
-    
-    
-    
-    // ------------------------------------------------------------------- old code.
-    gettimeofday(&start, NULL);
-    long long start_time = start.tv_sec * 1000LL + start.tv_usec / 1000;
+    char line[MAX_EMAIL_SIZE + 10];
+    while(fgets(line, sizeof(line), file) && email_count < MAX_EMAILS)
+    {
+        char *label_str = strtok(line, ",");
+        char *content = strtok(NULL, "\n");
 
-    train(train_emails, train_labels, NUM_TRAIN_EMAILS);
+        if(label_str && content)
+        {
+            labels[email_count] = atoi(label_str);
+            strncpy(emails[email_count], content, MAX_EMAIL_SIZE - 1);
+            emails[email_count][MAX_EMAIL_SIZE - 1] = '\0';
+            email_count++;
+        }
+        
+        if(email_count % 1000 == 0)
+        {
+            printf("Processed %d emails\n", email_count);
+        }
+    }
+    fclose(file);
+
+    printf("Total emails processed: %d\n", email_count);
+
+    if(email_count == 0)
+    {
+        printf("No emails were read from the file. Check the file content.\n");
+        return 1;
+    }
+
+    int train_count = (int)(email_count * TRAIN_RATIO);
+    int test_count = email_count - train_count;
     
+    printf("Training on %d emails, testing on %d emails\n", train_count, test_count);
 
-    test(test_emails, test_labels, NUM_TEST_EMAILS);
-
-    gettimeofday(&end, NULL);
-    long long end_time = end.tv_sec * 1000LL + end.tv_usec / 1000;
-
-    printf("Execution time: %lld ms\n", end_time - start_time);
+    train(emails, labels, train_count);
+    test(emails + train_count, labels + train_count, test_count);
 
     return 0;
 }

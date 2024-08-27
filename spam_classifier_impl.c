@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <math.h>
 
 WordProbability word_probs[MAX_WORDS];
 int word_prob_count = 0;
@@ -38,6 +39,7 @@ void tokenize(char* email, char tokens[][50], int* token_count)
 
 void train(char emails[][MAX_EMAIL_SIZE], int labels[], int email_count)
 {
+    printf("Started Training on %d emails\n", email_count);
     for(int i = 0; i < email_count; i++)
     {
         char tokens[MAX_TOKENS][50];
@@ -81,6 +83,7 @@ void train(char emails[][MAX_EMAIL_SIZE], int labels[], int email_count)
             }
         }
     }
+    printf("Training Completed!\n");
 }
 
 double calculate_probability(char *email, int is_spam)
@@ -89,27 +92,28 @@ double calculate_probability(char *email, int is_spam)
     int token_count = 0;
     tokenize(email, tokens, &token_count);
 
-    double prob = 1.0;
+    double log_prob = 0.0;
     for(int i = 0; i < token_count; i++)
     {
         for(int j = 0; j < word_prob_count; j++)
         {
             if(strcmp(word_probs[j].word, tokens[i]) == 0)
             {
+                double p;
                 if(is_spam)
                 {
-                    prob *= (double)word_probs[j].spam_count / (word_probs[j].spam_count + word_probs[j].not_spam_count);
+                    p = (double)(word_probs[j].spam_count + 1) / (word_probs[j].spam_count + word_probs[j].not_spam_count + 2);
                 }
                 else
                 {
-                    prob *= (double)word_probs[j].not_spam_count / (word_probs[j].spam_count + word_probs[j].not_spam_count);
+                    p = (double)(word_probs[j].not_spam_count + 1) / (word_probs[j].spam_count + word_probs[j].not_spam_count + 2);
                 }
+                log_prob += log(p);
                 break;
             }
         }
     }
-
-    return prob;
+    return log_prob;
 }
 
 int predict(char *email)
@@ -122,6 +126,7 @@ int predict(char *email)
 
 void test(char test_emails[][MAX_EMAIL_SIZE], int test_labels[], int test_count)
 {
+    printf("Started Testing on %d emails\n", test_count);
     int correct = 0;
     for(int i = 0; i < test_count; i++)
     {
@@ -130,7 +135,12 @@ void test(char test_emails[][MAX_EMAIL_SIZE], int test_labels[], int test_count)
         {
             correct++;
         }
+        if(i % 100 == 0)
+        {
+            printf("Testing %d/%d\n", i, test_count);
+        }
     }
+    printf("Testing Completed!\n");
 
     printf("Accuracy: %f\n", (double)correct / test_count);
 }
