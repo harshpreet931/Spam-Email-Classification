@@ -9,14 +9,22 @@
 #define TRAIN_RATIO 0.8
 
 int main() {
-    char emails[MAX_EMAILS][MAX_EMAIL_SIZE];
-    int labels[MAX_EMAILS];
+    char (*emails)[MAX_EMAIL_SIZE] = malloc(MAX_EMAILS * sizeof(*emails));
+    int *labels = malloc(MAX_EMAILS * sizeof(*labels));
+    
+    if (!emails || !labels) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
     int email_count = 0;
 
-    FILE* file = fopen("./spm_temp.txt", "r+");
+    FILE* file = fopen("./spm_dataset.txt", "r");
     if(file == NULL) 
     {
         printf("Error opening file\n");
+        free(emails);
+        free(labels);
         return 1;
     }
     printf("File opened successfully\n");
@@ -47,6 +55,8 @@ int main() {
     if(email_count == 0)
     {
         printf("No emails were read from the file. Check the file content.\n");
+        free(emails);
+        free(labels);
         return 1;
     }
 
@@ -54,9 +64,12 @@ int main() {
     int test_count = email_count - train_count;
     
     printf("Training on %d emails, testing on %d emails\n", train_count, test_count);
-
+    
     train(emails, labels, train_count);
     test(emails + train_count, labels + train_count, test_count);
+
+    free(emails);
+    free(labels);
 
     return 0;
 }

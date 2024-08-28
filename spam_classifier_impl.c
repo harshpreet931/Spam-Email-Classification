@@ -8,7 +8,7 @@
 WordProbability word_probs[MAX_WORDS];
 int word_prob_count = 0;
 
-void tokenize(char* email, char tokens[][50], int* token_count)
+void tokenize(char* email, char tokens[][MAX_TOKEN_LENGTH], int* token_count)
 {
     char* token = strtok(email, " ");
     while(token != NULL && *token_count < MAX_TOKENS)
@@ -19,7 +19,7 @@ void tokenize(char* email, char tokens[][50], int* token_count)
         }
 
         int j = 0;
-        for(int i = 0; token[i]; i++)
+        for(int i = 0; token[i] && j < MAX_TOKEN_LENGTH - 1; i++)
         {
             if(isalnum(token[i]))
             {
@@ -30,7 +30,8 @@ void tokenize(char* email, char tokens[][50], int* token_count)
 
         if(strlen(token) > 0)
         {
-            strcpy(tokens[*token_count], token);
+            strncpy(tokens[*token_count], token, MAX_TOKEN_LENGTH - 1);
+            tokens[*token_count][MAX_TOKEN_LENGTH - 1] = '\0';
             (*token_count)++;
         }
         token = strtok(NULL, " ");
@@ -42,7 +43,7 @@ void train(char emails[][MAX_EMAIL_SIZE], int labels[], int email_count)
     printf("Started Training on %d emails\n", email_count);
     for(int i = 0; i < email_count; i++)
     {
-        char tokens[MAX_TOKENS][50];
+        char tokens[MAX_TOKENS][MAX_TOKEN_LENGTH];
         int token_count = 0;
         tokenize(emails[i], tokens, &token_count);
 
@@ -66,9 +67,10 @@ void train(char emails[][MAX_EMAIL_SIZE], int labels[], int email_count)
                 }
             }
 
-            if(!found)
+            if(!found && word_prob_count < MAX_WORDS)
             {
-                strcpy(word_probs[word_prob_count].word, tokens[j]);
+                strncpy(word_probs[word_prob_count].word, tokens[j], sizeof(word_probs[word_prob_count].word) - 1);
+                word_probs[word_prob_count].word[sizeof(word_probs[word_prob_count].word) - 1] = '\0';
                 if(labels[i] == 1)
                 {
                     word_probs[word_prob_count].spam_count = 1;
@@ -83,12 +85,12 @@ void train(char emails[][MAX_EMAIL_SIZE], int labels[], int email_count)
             }
         }
     }
-    printf("Training Completed!\n");
+    printf("Training Completed! Total unique words: %d\n", word_prob_count);
 }
 
 double calculate_probability(char *email, int is_spam)
 {
-    char tokens[MAX_TOKENS][50];
+    char tokens[MAX_TOKENS][500];
     int token_count = 0;
     tokenize(email, tokens, &token_count);
 

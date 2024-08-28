@@ -1,10 +1,11 @@
 #define MAX_EMAIL_SIZE 1000
 #define MAX_WORDS 10000
 #define MAX_TOKENS 1000
+#define MAX_TOKEN_LENGTH 500
 
 typedef struct
 {
-    char word[50];
+    char word[MAX_TOKEN_LENGTH];
     int spam_count;
     int not_spam_count;    
 } WordProbability;
