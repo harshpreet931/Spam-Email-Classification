@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include <sys/resource.h>
+// #include <sys/resource.h>
 #include <time.h>
 #include "spam_classifier.h"
 
@@ -11,8 +11,8 @@
 
 int main() {
     struct timeval start, end;
-    struct rusage usage_start, usage_start;
-    getrusage(RUSAGE_SELF, &usage_start);
+    // struct rusage usage_start, usage_start;
+    // getrusage(RUSAGE_SELF, &usage_start);
 
     char (*emails)[MAX_EMAIL_SIZE] = malloc(MAX_EMAILS * sizeof(*emails));
     int *labels = malloc(MAX_EMAILS * sizeof(*labels));
@@ -78,11 +78,11 @@ int main() {
 
     gettimeofday(&end, NULL);
     long long after = end.tv_sec * 1000LL + end.tv_usec / 1000;
-    getrusage(RUSAGE_SELF, &usage_end);
-    long long memory_used = usage_end.ru_maxrss - usage_start.ru_maxrss;
+    // getrusage(RUSAGE_SELF, &usage_end);
+    // long long memory_used = usage_end.ru_maxrss - usage_start.ru_maxrss;
 
     printf("Time taken: %lld ms\n", after - before);
-    printf("Memory used: %lld KB\n", memory_used);
+    // printf("Memory used: %lld KB\n", memory_used);
 
     free(emails);
     free(labels);
