@@ -8,7 +8,7 @@
 #include "data_loader.h"
 
 #define MAX_EMAILS 10000
-#define TRAIN_RATIO 0.8
+#define TRAIN_RATIO 0.80
 
 int main() {
     struct timeval start, end;
