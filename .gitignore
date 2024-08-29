@@ -2,3 +2,4 @@ data_loader
 spam_classifier_impl
 lib.a
 test_output
+test_output.exe
