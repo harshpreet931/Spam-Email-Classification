@@ -146,3 +146,13 @@ void test(char test_emails[][MAX_EMAIL_SIZE], int test_labels[], int test_count)
 
     printf("Accuracy: %f\n", (double)correct / test_count);
 }
+
+void predict_cli_input(char* email) {
+    int prediction = predict(email);
+    double spam_prob = calculate_probability(email, 1);
+    double not_spam_prob = calculate_probability(email, 0);
+
+    printf("Prediction: %s\n", prediction ? "Spam" : "Not spam");
+    printf("Spam probability: %f\n", spam_prob);
+    printf("Not spam probability: %f\n", not_spam_prob);
+}

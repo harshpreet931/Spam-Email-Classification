@@ -9,18 +9,7 @@
 #define MAX_EMAILS 10000
 #define TRAIN_RATIO 0.80
 
-void predict_cli_input(char* email) {
-    int prediction = predict(email);
-    double spam_prob = calculate_probability(email, 1);
-    double not_spam_prob = calculate_probability(email, 0);
-
-    printf("Prediction: %s\n", prediction ? "Spam" : "Not spam");
-    printf("Spam probability: %f\n", spam_prob);
-    printf("Not spam probability: %f\n", not_spam_prob);
-}
-
 int main(int argc, char *argv[]) {
-    // handling arguments
     if(argc > 1 && strcmp(argv[1], "-p") == 0) {
         char email[MAX_EMAIL_SIZE];
         printf("Enter the email content: (Press Ctrl+D to finish)\n");
