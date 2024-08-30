@@ -16,5 +16,6 @@ typedef struct
 void train(char emails[][MAX_EMAIL_SIZE], int labels[], int email_count);
 int predict(char *email);
 void test(char test_emails[][MAX_EMAIL_SIZE], int test_labels[], int test_count);
+double calculate_probability(char *email, int spam);
 
 #endif
