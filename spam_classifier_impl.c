@@ -75,7 +75,7 @@ void train(char emails[][MAX_EMAIL_SIZE], int labels[], int email_count)
             }
         }
     }
-    printf("Training Completed! Total unique words: %d\n", word_prob_count);
+    printf("Training Completed!");
 }
 
 double calculate_probability(char *email, int is_spam)
