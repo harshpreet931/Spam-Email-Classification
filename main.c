@@ -13,7 +13,7 @@ int main() {
     struct timeval start, end;
     char (*emails)[MAX_EMAIL_SIZE] = malloc(MAX_EMAILS * sizeof(*emails));
     int *labels = malloc(MAX_EMAILS * sizeof(*labels));
-    int email_count = load_data(emails, labels, "./spm_dataset.txt");
+    int email_count = load_data(emails, labels, "./temp_database.txt");
     int train_count = (int)(email_count * TRAIN_RATIO);
     int test_count = email_count - train_count;
     
