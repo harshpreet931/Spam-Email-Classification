@@ -110,13 +110,10 @@ double calculate_probability(char *email, int is_spam)
 
 int predict(char *email)
 {
-    double spam_log_prob = calculate_probability(email, 1);
-    double not_spam_log_prob = calculate_probability(email, 0);
+    double spam_prob = calculate_probability(email, 1);
+    double not_spam_prob = calculate_probability(email, 0);
 
-    spam_log_prob += log(0.5);
-    not_spam_log_prob += log(0.5);
-
-    return spam_log_prob > not_spam_log_prob ? 1 : 0;
+    return spam_prob > not_spam_prob ? 1 : 0;
 }
 
 void test(char test_emails[][MAX_EMAIL_SIZE], int test_labels[], int test_count)
