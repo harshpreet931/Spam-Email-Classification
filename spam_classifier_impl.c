@@ -10,7 +10,7 @@ int word_prob_count = 0;
 
 void tokenize(char* email, char tokens[][MAX_TOKEN_LENGTH], int* token_count)
 {
-    char* token = strtok(email, " ");
+    char* token = strtok(email, " \t\n\r\f\v,.!?;:\"'()[]{}");
     while(token != NULL && *token_count < MAX_TOKENS)
     {
         for(int i = 0; token[i]; i++)
@@ -18,23 +18,13 @@ void tokenize(char* email, char tokens[][MAX_TOKEN_LENGTH], int* token_count)
             token[i] = tolower(token[i]);
         }
 
-        int j = 0;
-        for(int i = 0; token[i] && j < MAX_TOKEN_LENGTH - 1; i++)
-        {
-            if(isalnum(token[i]))
-            {
-                token[j++] = token[i];
-            }
-        }
-        token[j] = '\0';
-
         if(strlen(token) > 0)
         {
             strncpy(tokens[*token_count], token, MAX_TOKEN_LENGTH - 1);
             tokens[*token_count][MAX_TOKEN_LENGTH - 1] = '\0';
             (*token_count)++;
         }
-        token = strtok(NULL, " ");
+        token = strtok(NULL, " \t\n\r\f\v,.!?;:\"'()[]{}");
     }
 }
 
@@ -120,10 +110,13 @@ double calculate_probability(char *email, int is_spam)
 
 int predict(char *email)
 {
-    double spam_prob = calculate_probability(email, 1);
-    double not_spam_prob = calculate_probability(email, 0);
+    double spam_log_prob = calculate_probability(email, 1);
+    double not_spam_log_prob = calculate_probability(email, 0);
 
-    return spam_prob > not_spam_prob ? 1 : 0;
+    spam_log_prob += log(0.5);
+    not_spam_log_prob += log(0.5);
+
+    return spam_log_prob > not_spam_log_prob ? 1 : 0;
 }
 
 void test(char test_emails[][MAX_EMAIL_SIZE], int test_labels[], int test_count)
