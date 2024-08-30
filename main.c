@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/time.h>
-// #include <sys/resource.h>
 #include <time.h>
 #include "spam_classifier.h"
 #include "data_loader.h"
