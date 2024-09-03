@@ -4,4 +4,5 @@ lib.a
 test_output
 test_output.exe
 spam_model.bin
+model_io
 
