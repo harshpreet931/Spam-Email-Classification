@@ -1,3 +1,5 @@
+# C-based Spam Email Classifier
+
 ![Banner Image](./bannerImg.png)
 
 A simple yet effective C-based spam email classifier using a Naive Bayes approach.
@@ -13,7 +15,7 @@ A simple yet effective C-based spam email classifier using a Naive Bayes approac
 
 ## Overview
 
-This project implements a basic spam email classifier in C. It uses a Naive Bayes algorithm to categorize emails as either spam or not spam based on the words they contain.
+This project implements a basic spam email classifier in C. It uses a Basic Naive Bayes algorithm to categorize emails as either spam or not spam based on the words they contain, completely written in C. The classifier is trained on a dataset of labeled emails, learning the probability of each word appearing in spam and non-spam emails. It then uses this information to predict the class of new emails based on the words they contain. The implementation is lightweight and fast, making it suitable for small to medium-sized datasets.
 
 ## Features
 
@@ -21,19 +23,24 @@ This project implements a basic spam email classifier in C. It uses a Naive Baye
 - Predict whether new emails are spam or not
 - Simple and lightweight implementation in C
 - Fast execution with runtime measurement
+- Model saving and loading functionality
 
 ## File Structure
 
-- `main.c`: Main program file containing the entry point and sample data
-- `spam_classifier.h`: Header file with function declarations and constants
+- `main.c`: Main program file containing the entry point and command-line interface
+- `spam_classifier.h`: Header file with function declarations and constants for the spam classifier
 - `spam_classifier_impl.c`: Implementation of the spam classifier functions
+- `data_loader.c` and `data_loader.h`: Functions for loading email data from files
+- `model_io.c` and `model_io.h`: Functions for saving and loading the trained model
 
 ## How It Works
 
-1. **Training**: The classifier learns from a set of pre-labeled emails, counting the occurrences of words in spam and non-spam emails.
-2. **Tokenization**: Emails are broken down into individual words (tokens).
-3. **Probability Calculation**: For each word, the probability of it appearing in spam and non-spam emails is calculated.
-4. **Prediction**: New emails are classified by calculating the overall probability of being spam or not spam based on the words they contain.
+1. **Data Loading**: Emails are loaded from a text file using the data loader.
+2. **Training**: The classifier learns from a set of pre-labeled emails, counting the occurrences of words in spam and non-spam emails.
+3. **Tokenization**: Emails are broken down into individual words (tokens).
+4. **Probability Calculation**: For each word, the probability of it appearing in spam and non-spam emails is calculated using Laplace smoothing.
+5. **Prediction**: New emails are classified by calculating the overall probability of being spam or not spam based on the words they contain.
+6. **Model Persistence**: The trained model can be saved to a file and loaded later for predictions without retraining.
 
 ## Getting Started
 
@@ -43,11 +50,40 @@ This project implements a basic spam email classifier in C. It uses a Naive Baye
 
 ### Compilation
 
-<!-- Yet to write compilation procedure -->
+To compile the project, you can use the following command in the project directory:
+
+```
+./run_project.sh
+```
+
+
+## Usage
+
+### Training and Testing
+
+To train the model and test it on a dataset:
+
+```
+./spam_classifier
+```
+
+This will load the email data, train the model, test it, and save the model to a file.
+
+### Predicting
+
+To use the trained model for predicting on new emails:
+
+```
+./spam_classifier --predict
+```
+
+This will load the saved model and allow you to input emails for classification.
 
 ## Performance
 
 The classifier's performance can be evaluated based on:
 
-1. Accuracy: Printed at the end of execution
-2. Execution Time: Displayed in milliseconds
+1. **Accuracy**: Printed at the end of the test phase, showing the percentage of correctly classified emails.
+2. **Execution Time**: Displayed in milliseconds, showing the total time taken for training and testing.
+
+Note: The performance may vary depending on the size and quality of the training dataset, as well as the characteristics of the emails being classified. The current dataset is created by the me and is not a real-world dataset.
