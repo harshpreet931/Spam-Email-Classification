@@ -5,7 +5,7 @@ void save_model (char* filename, WordProbability* word_probs, int word_prob_coun
     FILE *file = fopen(filename, "wb");
     if (file == NULL) {
         printf("Error opening file to write %s\n", filename);
-        return 0;
+        return;
     }
 
     fwrite(&word_prob_count, sizeof(int), 1, file);

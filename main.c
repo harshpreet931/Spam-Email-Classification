@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
         printf("Enter email to predict:  (To stop press -> '|')\n");
         char email[MAX_EMAIL_SIZE];
         while(1) {
-            f_gets(email, MAX_EMAIL_SIZE, stdin);
+            fgets(email, MAX_EMAIL_SIZE, stdin);
             if (email[0] == '|') {
                 break;
             }
