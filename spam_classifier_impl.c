@@ -1,4 +1,5 @@
 #include "spam_classifier.h"
+#include "model_io.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
