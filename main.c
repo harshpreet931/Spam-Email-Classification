@@ -11,6 +11,9 @@
 #define TRAIN_RATIO 0.80
 #define MODEL_FILENAME "spam_model.bin"
 
+extern WordProbability word_probs[MAX_WORDS];
+extern int word_prob_count;
+
 int main(int argc, char *argv[]) {
     if(argc > 1 && (strcmp(argv[1], "--predict") == 0)) {
         word_prob_count = load_model(MODEL_FILENAME, word_probs, MAX_WORDS);
