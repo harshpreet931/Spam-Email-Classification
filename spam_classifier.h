@@ -22,20 +22,20 @@ typedef struct
 } WordProbability;
 
 // Trains the spam classifier model using the provided emails and labels.
-// - emails: An array of email strings.
-// - labels: An array of integer labels (1 for spam, 0 for not spam).
-// - email_count: The number of emails in the training set.
+// - emails: Array of email strings.
+// - labels: Array of labels (1 for spam, 0 for not spam).
+// - email_count: Number of emails in the training set.
 void train(char emails[][MAX_EMAIL_SIZE], int labels[], int email_count);
 
 // Predicts whether an email is spam or not spam.
-// - email: The email string to predict.
-// Returns: 1 if the email is predicted to be spam, 0 if not spam.
+// - email: Email string to predict.
+// Returns: 1 if the email is spam, 0 if not spam.
 int predict(char *email);
 
 // Tests the spam classifier model using the provided test emails and labels.
-// - test_emails: An array of email strings for testing.
-// - test_labels: An array of integer labels (1 for spam, 0 for not spam).
-// - test_count: The number of emails in the test set.
+// - test_emails: Array of email strings for testing.
+// - test_labels: Array of labels (1 for spam, 0 for not spam).
+// - test_count: Number of emails in the test set.
 void test(char test_emails[][MAX_EMAIL_SIZE], int test_labels[], int test_count);
 
 #endif
