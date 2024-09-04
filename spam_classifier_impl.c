@@ -43,7 +43,6 @@ void tokenize(char* email, char tokens[][MAX_TOKEN_LENGTH], int* token_count)
         token = strtok(NULL, " \t\n\r\f\v,.!?;:\"'()[]{}");
     }
 }
-
 // Explained in the header file spam_classifier.h
 void train(char emails[][MAX_EMAIL_SIZE], int labels[], int email_count)
 {
