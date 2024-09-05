@@ -1,6 +1,6 @@
 # C-based Spam Email Classifier
 
-![Banner Image](./bannerImg.png)
+![Banner Image](./images/bannerImg.png)
 
 A simple yet effective C-based spam email classifier using a Naive Bayes approach.
 
