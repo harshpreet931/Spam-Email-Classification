@@ -2,7 +2,9 @@ data_loader
 spam_classifier_impl
 lib.a
 test_output
-test_output.exe
 spam_model.bin
 model_io
-
+spam_classifier
+spam_classifier.exe
+spam_classifier
+test_output.exe
