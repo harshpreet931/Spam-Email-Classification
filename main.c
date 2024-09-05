@@ -29,7 +29,12 @@ int main(int argc, char *argv[])
         }
 
         printf("Enter email to predict:  (To stop press -> '|')\n");
-        char email[MAX_EMAIL_SIZE];
+        char *email = malloc(MAX_EMAIL_SIZE * sizeof(char));
+        if(email == NULL) 
+        {
+            printf("Error allocating memory for email\n");
+            return 1;
+        }
         // Continuously read emails from the user and predict if they are spam or not
         while(1) 
         {
@@ -45,11 +50,14 @@ int main(int argc, char *argv[])
             if (prediction == 1) 
             {
                 printf("SPAM\n");
-            } else 
+            } 
+            else 
             {
                 printf("NOT SPAM\n");
             }
         }
+
+        free(email);
     }
     else 
     {
@@ -62,6 +70,14 @@ int main(int argc, char *argv[])
         char (*emails)[MAX_EMAIL_SIZE] = malloc(MAX_EMAILS * sizeof(*emails));
         int *labels = malloc(MAX_EMAILS * sizeof(*labels));
 
+        if (emails == NULL || labels == NULL) 
+        {
+            printf("Error allocating memory for emails and labels\n");
+            free(emails);
+            free(labels);
+            return 1;
+        }
+
         // Load email data and the labels from the dataset
         int email_count = load_data(emails, labels, "./spm_database.txt");
 
@@ -73,10 +89,8 @@ int main(int argc, char *argv[])
         gettimeofday(&start, NULL);
         long long before = start.tv_sec * 1000LL + start.tv_usec / 1000;
 
-        // Train the model using the training data
+        // Trainining and Testing
         train(emails, labels, train_count);
-
-        // Test the model using the testing data
         test(emails + train_count, labels + train_count, test_count);
 
         // Stop the timer after training and testing and print the performance
