@@ -7,8 +7,8 @@ A simple yet effective C-based spam email classifier using a Naive Bayes approac
 ## Table of Contents
 - [Overview](#overview)
 - [Features](#features)
-- [File Structure](#file-structure)
 - [How It Works](#how-it-works)
+- [File Structure](#file-structure)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Performance](#performance)
@@ -25,14 +25,6 @@ This project implements a basic spam email classifier in C. It uses a Basic Naiv
 - Fast execution with runtime measurement
 - Model saving and loading functionality
 
-## File Structure
-
-- `main.c`: Main program file containing the entry point and command-line interface
-- `spam_classifier.h`: Header file with function declarations and constants for the spam classifier
-- `spam_classifier_impl.c`: Implementation of the spam classifier functions
-- `data_loader.c` and `data_loader.h`: Functions for loading email data from files
-- `model_io.c` and `model_io.h`: Functions for saving and loading the trained model
-
 ## How It Works
 
 ![Explanation Infographic](./images/how%20do%20we%20classifiy.png)
@@ -47,6 +39,14 @@ This project implements a basic spam email classifier in C. It uses a Basic Naiv
 4. **Probability Calculation**: For each word, the probability of it appearing in spam and non-spam emails is calculated using Laplace smoothing.
 5. **Prediction**: New emails are classified by calculating the overall probability of being spam or not spam based on the words they contain.
 6. **Model Persistence**: The trained model can be saved to a file and loaded later for predictions without retraining.
+
+## File Structure
+
+- `main.c`: Main program file containing the entry point and command-line interface
+- `spam_classifier.h`: Header file with function declarations and constants for the spam classifier
+- `spam_classifier_impl.c`: Implementation of the spam classifier functions
+- `data_loader.c` and `data_loader.h`: Functions for loading email data from files
+- `model_io.c` and `model_io.h`: Functions for saving and loading the trained model
 
 ## Getting Started
 
