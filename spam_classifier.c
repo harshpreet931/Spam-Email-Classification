@@ -103,10 +103,10 @@ void train(char emails[][MAX_EMAIL_SIZE], int labels[], int email_count)
     printf("Training Completed!");
 }
 
-// Calculate the log-probability of an email being spam or not spam.
+// Calculate the probability of an email being spam or not spam.
 // - email: Email text to calculate the probability for.
 // - is_spam: Flag to tell spam(1) or not spam(0).
-// Returns: The log-probability of the email being spam or not spam.
+// Returns: The probability of the email being spam or not spam.
 double calculate_probability(char *email, int is_spam)
 {
     char tokens[MAX_TOKENS][500];
@@ -114,8 +114,8 @@ double calculate_probability(char *email, int is_spam)
     // Tokenize the email to get individual words
     tokenize(email, tokens, &token_count);
 
-    double log_prob = 0.0;
-    // Loop through each token and calculate the log-probability
+    double prob = 1.0;  // Start with probability of 1
+    // Loop through each token and calculate the probability
     for(int i = 0; i < token_count; i++)
     {
         for(int j = 0; j < word_prob_count; j++)
@@ -132,12 +132,12 @@ double calculate_probability(char *email, int is_spam)
                 {
                     p = (double)(word_probs[j].not_spam_count + 1) / (word_probs[j].spam_count + word_probs[j].not_spam_count + 2);
                 }
-                log_prob += log(p); // Add the log-probability
+                prob *= p;  // Multiply the probabilities
                 break;
             }
         }
     }
-    return log_prob;
+    return prob;
 }
 
 // Simple function to predict whether an email is spam or not spam.
