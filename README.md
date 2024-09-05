@@ -35,6 +35,12 @@ This project implements a basic spam email classifier in C. It uses a Basic Naiv
 
 ## How It Works
 
+![Explanation Infographic](./images/how%20do%20we%20classifiy.png)
+
+---
+
+#### If you like to read, here is the explanation: :)
+
 1. **Data Loading**: Emails are loaded from a text file using the data loader.
 2. **Training**: The classifier learns from a set of pre-labeled emails, counting the occurrences of words in spam and non-spam emails.
 3. **Tokenization**: Emails are broken down into individual words (tokens).
