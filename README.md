@@ -71,7 +71,7 @@ To compile the project, you can use the following command in the project directo
 To train the model and test it on a dataset:
 
 ```
-./spam_classifier
+./test_output
 ```
 
 This will load the email data, train the model, test it, and save the model to a file.
@@ -81,7 +81,7 @@ This will load the email data, train the model, test it, and save the model to a
 To use the trained model for predicting on new emails:
 
 ```
-./spam_classifier --predict
+./test_output --predict
 ```
 
 This will load the saved model and allow you to input emails for classification.
