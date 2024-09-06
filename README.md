@@ -12,6 +12,7 @@ A simple yet effective C-based spam email classifier using a Naive Bayes approac
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Performance](#performance)
+- [Future Scope and Improvements](#future-scope-and-improvements)
 
 ## Overview
 
@@ -92,4 +93,20 @@ The classifier's performance can be evaluated based on:
 1. **Accuracy**: Printed at the end of the test phase, showing the percentage of correctly classified emails.
 2. **Execution Time**: Displayed in milliseconds, showing the total time taken for training and testing.
 
+---
+
+#### Time Taken Graph for Training and Testing vs Dataset Size
+![Time Taken Graph](./images/timeTaken.png)
+
+#### Accuracy vs Dataset Size
+![Accuracy Graph](./images/accuracy.png)
+
+
 Note: The performance may vary depending on the size and quality of the training dataset, as well as the characteristics of the emails being classified. The current dataset is created by the me and is not a real-world dataset.
+
+## Future Scope and Improvements
+
+- Implement more advanced text processing techniques like TF-IDF, stemming, and stop-word removal.
+- Experiment with different probability estimation methods and feature selection techniques like chi-square.
+- Add more evaluation metrics like precision, recall, and F1 score.
+- Generalize the classifier to handle multiple classes and improve the model persistence functionality.
