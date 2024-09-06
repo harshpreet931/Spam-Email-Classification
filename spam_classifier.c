@@ -99,8 +99,14 @@ void train(char emails[][MAX_EMAIL_SIZE], int labels[], int email_count)
                 word_prob_count++;
             }
         }
+
+        // Verbose output.
+        if(i % 500 == 0)
+        {
+            printf("Training %d/%d\n", i, email_count);
+        }
     }
-    printf("Training Completed!");
+    printf("Training Completed!\n");
 }
 
 // Calculate the probability of an email being spam or not spam.

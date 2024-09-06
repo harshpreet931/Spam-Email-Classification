@@ -16,7 +16,8 @@ extern WordProbability word_probs[MAX_WORDS];
 extern int word_prob_count;
 
 int main(int argc, char *argv[]) 
-{
+{   
+    // Case if the program is run with the "--predict" argument
     // Check if the program is run with the "--predict" argument
     if(argc > 1 && (strcmp(argv[1], "--predict") == 0)) 
     {
@@ -46,8 +47,8 @@ int main(int argc, char *argv[])
             }
 
             // Predict if the email is spam or not
-            int prediction = predict(email);
-            if (prediction == 1) 
+            int result = predict(email);
+            if (result == 1) 
             {
                 printf("SPAM\n");
             } 
@@ -61,12 +62,14 @@ int main(int argc, char *argv[])
     }
     else 
     {
-        // Normal Training and Testing mode, Default mode.
-
+        // Default case: Train the model and test it on a dataset
         // Timing variables for measuring performance
         struct timeval start, end;
 
         // Allocate memory for emails and labels
+        // The emails are stored as a 2D array of characters, 2D because each email is a string of characters
+        // and that email is an element of the emails array.
+        // The labels are stored as a normal array.
         char (*emails)[MAX_EMAIL_SIZE] = malloc(MAX_EMAILS * sizeof(*emails));
         int *labels = malloc(MAX_EMAILS * sizeof(*labels));
 
@@ -97,7 +100,6 @@ int main(int argc, char *argv[])
         gettimeofday(&end, NULL);
         long long after = end.tv_sec * 1000LL + end.tv_usec / 1000;
         printf("Time taken: %lld ms\n", after - before);
-
 
         // Save the trained model to a file for future use
         save_model(MODEL_FILENAME, word_probs, word_prob_count);
