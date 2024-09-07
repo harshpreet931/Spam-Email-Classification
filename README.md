@@ -18,6 +18,15 @@ A simple yet effective C-based spam email classifier using a Naive Bayes approac
 
 This project implements a basic spam email classifier in C. It uses a Basic Naive Bayes algorithm to categorize emails as either spam or not spam based on the words they contain, completely written in C. The classifier is trained on a dataset of labeled emails, learning the probability of each word appearing in spam and non-spam emails. It then uses this information to predict the class of new emails based on the words they contain. The implementation is lightweight and fast, making it suitable for small to medium-sized datasets.
 
+#### Target Audience
+- **Students new to Programming**: This project can be a good starting point for students who are new to programming and want to learn about text classification algorithms.
+
+- **C Programming Enthusiasts**: For those who want to explore the capabilities of C programming, this project provides a practical example of implementing a machine learning algorithm in C.
+
+- **Machine Learning Beginners**: If you are new to machine learning and want to understand the basics of text classification, this project can help you grasp the concepts of Naive Bayes algorithm.
+
+- **Educators and Trainers**: Teachers and trainers can use this project to demonstrate the implementation of a simple machine learning algorithm in C to their students.
+
 ## Features
 
 - Train on a dataset of labeled emails
@@ -34,12 +43,12 @@ This project implements a basic spam email classifier in C. It uses a Basic Naiv
 
 #### If you like to read, here is the explanation: :)
 
-1. **Data Loading**: Emails are loaded from a text file using the data loader.
-2. **Training**: The classifier learns from a set of pre-labeled emails, counting the occurrences of words in spam and non-spam emails.
-3. **Tokenization**: Emails are broken down into individual words (tokens).
-4. **Probability Calculation**: For each word, the probability of it appearing in spam and non-spam emails is calculated using Laplace smoothing.
-5. **Prediction**: New emails are classified by calculating the overall probability of being spam or not spam based on the words they contain.
-6. **Model Persistence**: The trained model can be saved to a file and loaded later for predictions without retraining.
+- **Data Loading**: Emails are loaded from a text file using the data loader.
+- **Training**: The classifier learns from a set of pre-labeled emails, counting the occurrences of words in spam and non-spam emails.
+- **Tokenization**: Emails are broken down into individual words (tokens).
+- **Probability Calculation**: For each word, the probability of it appearing in spam and non-spam emails is calculated using Laplace smoothing.
+- **Prediction**: New emails are classified by calculating the overall probability of being spam or not spam based on the words they contain.
+- **Model Persistence**: The trained model can be saved to a file and loaded later for predictions without retraining.
 
 ## File Structure
 
@@ -71,7 +80,7 @@ To compile the project, you can use the following command in the project directo
 To train the model and test it on a dataset:
 
 ```
-./spam_classifier
+./test_output
 ```
 
 This will load the email data, train the model, test it, and save the model to a file.
@@ -81,7 +90,7 @@ This will load the email data, train the model, test it, and save the model to a
 To use the trained model for predicting on new emails:
 
 ```
-./spam_classifier --predict
+./test_output --predict
 ```
 
 This will load the saved model and allow you to input emails for classification.
